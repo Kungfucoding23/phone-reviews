@@ -27,3 +27,8 @@ func NewSQLClient(source string) *MySQLClient {
 	}
 	return &MySQLClient{db}
 }
+
+//ViewStats ...DBStats contains database statistics.
+func (c *MySQLClient) ViewStats() sql.DBStats {
+	return c.Stats()
+}
