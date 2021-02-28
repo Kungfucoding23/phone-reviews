@@ -11,16 +11,18 @@ const (
 
 //Review represent an anon review from some website
 type Review struct {
-	ID      int64
-	Stars   int       // 1 - 5
-	Comment string    // max 400 chars
-	Date    time.Time // created at
+	ID       int64
+	Stars    int       // 1 - 5
+	Comment  string    // max 400 chars
+	Date     time.Time // created at
+	GadgetID int64
 }
 
 //CreateReviewCMD command to create a new review
 type CreateReviewCMD struct {
-	Stars   int    `json:"stars"`
-	Comment string `json:"comment"`
+	Stars    int    `json:"stars"`
+	Comment  string `json:"comment"`
+	GadgetID int64  `json:"gadget_id"`
 }
 
 //Validate validates the stars and comments len
