@@ -4,7 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/Kungfucoding23/API-Go-mysql-chi/internal/logs"
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/go-sql-driver/mysql" // _ mysql driver
 )
 
 //MySQLClient ..
