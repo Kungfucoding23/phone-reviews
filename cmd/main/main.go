@@ -4,6 +4,7 @@ import (
 	"github.com/Kungfucoding23/API-Go-mysql-chi/gadgets/smartphones/web"
 	"github.com/Kungfucoding23/API-Go-mysql-chi/internal/database"
 	"github.com/Kungfucoding23/API-Go-mysql-chi/internal/logs"
+	reviews "github.com/Kungfucoding23/API-Go-mysql-chi/reviews/web"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/golang-migrate/migrate/source/file"
 	"github.com/golang-migrate/migrate/v4"
@@ -21,8 +22,12 @@ func main() {
 	client := database.NewSQLClient("root:root@tcp(localhost:3306)/phones_review")
 	doMigrate(client, "phones_review")
 
+	mongoClient := database.NewMongoClient("localhost")
+
+	reviewHandler := reviews.NewReviewHandler(mongoClient)
+
 	handler := web.NewCreateSmartphoneHandler(client)
-	mux := Routes(handler)
+	mux := Routes(handler, reviewHandler)
 	server := NewServer(mux)
 	server.Run()
 }

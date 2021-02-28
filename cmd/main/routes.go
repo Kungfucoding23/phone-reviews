@@ -5,12 +5,16 @@ import (
 	"net/http"
 
 	"github.com/Kungfucoding23/API-Go-mysql-chi/gadgets/smartphones/web"
+	reviews "github.com/Kungfucoding23/API-Go-mysql-chi/reviews/web"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
 //Routes ...
-func Routes(sph *web.CreateSmartphoneHandler) *chi.Mux {
+func Routes(
+	sph *web.CreateSmartphoneHandler,
+	reviewHandler *reviews.ReviewHandler,
+) *chi.Mux {
 	mux := chi.NewMux()
 
 	//global middlewares
@@ -21,6 +25,7 @@ func Routes(sph *web.CreateSmartphoneHandler) *chi.Mux {
 
 	mux.Post("/smartphones", sph.SaveSmartphoneHandler)
 	mux.Get("/hello", helloHandler)
+	mux.Post("/reviews", reviewHandler.AddReviewHandler)
 
 	return mux
 }
