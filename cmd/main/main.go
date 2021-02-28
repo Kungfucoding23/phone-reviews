@@ -19,6 +19,10 @@ func main() {
 
 	client := database.NewSQLClient("root:root@tcp(localhost:3306)/phones_review")
 	doMigrate(client, "phones_review")
+
+	mux := Routes()
+	server := NewServer(mux)
+	server.Run()
 }
 
 func doMigrate(client *database.MySQLClient, dbName string) {
