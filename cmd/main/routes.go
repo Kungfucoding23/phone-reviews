@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/Kungfucoding23/API-Go-mysql-chi/gadgets/smartphones/web"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 )
 
 //Routes ...
-func Routes() *chi.Mux {
+func Routes(sph *web.CreateSmartphoneHandler) *chi.Mux {
 	mux := chi.NewMux()
 
 	//global middlewares
@@ -18,7 +19,7 @@ func Routes() *chi.Mux {
 		middleware.Recoverer, // recover if a panic occurs
 	)
 
-	mux.Post("/smartphones", nil)
+	mux.Post("/smartphones", sph.SaveSmartphoneHandler)
 	mux.Get("/hello", helloHandler)
 
 	return mux

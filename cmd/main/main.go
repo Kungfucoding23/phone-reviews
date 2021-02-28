@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/Kungfucoding23/API-Go-mysql-chi/gadgets/smartphones/web"
 	"github.com/Kungfucoding23/API-Go-mysql-chi/internal/database"
 	"github.com/Kungfucoding23/API-Go-mysql-chi/internal/logs"
 	_ "github.com/go-sql-driver/mysql"
@@ -20,7 +21,8 @@ func main() {
 	client := database.NewSQLClient("root:root@tcp(localhost:3306)/phones_review")
 	doMigrate(client, "phones_review")
 
-	mux := Routes()
+	handler := web.NewCreateSmartphoneHandler(client)
+	mux := Routes(handler)
 	server := NewServer(mux)
 	server.Run()
 }
