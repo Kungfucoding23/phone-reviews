@@ -14,7 +14,7 @@ type MyServer struct {
 }
 
 //NewServer is a new custom Server
-func NewServer(mux *chi.Mux) *http.Server {
+func NewServer(mux *chi.Mux) *MyServer {
 	s := &http.Server{
 		Addr:           ":8080",
 		Handler:        mux,
@@ -22,7 +22,7 @@ func NewServer(mux *chi.Mux) *http.Server {
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-	return s
+	return &MyServer{s}
 }
 
 //Run the server
